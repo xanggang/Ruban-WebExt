@@ -1,12 +1,12 @@
 <template>
   <div class="search-bar-container">
-<!--    <AutoComplete-->
-<!--      v-model:value="value"-->
-<!--      :options="options"-->
-<!--      placeholder="input here"-->
-<!--      @select="onSelect"-->
-<!--      @search="onSearch"-->
-<!--    />-->
+    <AutoComplete
+      v-model:value="value"
+      :options="options"
+      placeholder="input here"
+      @select="onSelect"
+      @search="onSearch"
+    />
   </div>
 </template>
 
@@ -42,6 +42,11 @@ watch(value, () => {
 
 <style lang="less" scoped>
 .search-bar-container {
-  @apply w-16 h-12 bg-gray-50 text-gray-300;
+  @apply h-12 bg-gray-50 text-gray-300;
+  width: 400px;
+
+  > * {
+    width: 100px;
+  }
 }
 </style>
