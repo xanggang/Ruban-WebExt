@@ -3,7 +3,6 @@ import type { HMRPayload, PluginOption } from 'vite'
 import fs from 'fs-extra'
 import { isWin, r } from './scripts/utils'
 
-console.log({ isWin })
 const targetDir = r('extension')
 
 export const MV3Hmr = (): PluginOption => {

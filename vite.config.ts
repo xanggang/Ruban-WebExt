@@ -1,10 +1,10 @@
 /// <reference types="vitest" />
 
-import { dirname, relative } from 'path'
+import { dirname, relative, resolve } from 'path'
 import type { UserConfig } from 'vite'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
-import replace from '@rollup/plugin-replace';
+import replace from '@rollup/plugin-replace'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
@@ -18,6 +18,7 @@ export const sharedConfig: UserConfig = {
   resolve: {
     alias: {
       '~/': `${r('src')}/`,
+      '@': resolve(__dirname, './src'),
     },
   },
   plugins: [
@@ -32,14 +33,14 @@ export const sharedConfig: UserConfig = {
           ],
         },
       ],
-      dts: r('src/auto-imports.d.ts'),
+      dts: r('types/auto-imports.d.ts'),
     }),
 
     // https://github.com/antfu/unplugin-vue-components
     Components({
       dirs: [r('src/components')],
       // generate `components.d.ts` for ts support with Volar
-      dts: r('src/components.d.ts'),
+      dts: r('types/components.d.ts'),
       resolvers: [
         // auto import icons
         IconsResolver({
@@ -55,10 +56,10 @@ export const sharedConfig: UserConfig = {
     UnoCSS(),
 
     replace({
-      __DEV__: JSON.stringify(isDev),
+      '__DEV__': JSON.stringify(isDev),
       'process.env.NODE_ENV': JSON.stringify(isDev ? 'development' : 'production'),
-      __VUE_OPTIONS_API__: JSON.stringify(true),
-      __VUE_PROD_DEVTOOLS__: JSON.stringify(false),
+      '__VUE_OPTIONS_API__': JSON.stringify(true),
+      '__VUE_PROD_DEVTOOLS__': JSON.stringify(false),
     }),
 
     // rewrite assets to use relative path

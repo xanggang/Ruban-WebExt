@@ -3,3 +3,8 @@
     <pixelarticons-power />
   </a>
 </template>
+
+<script lang="ts" setup>
+
+const a = ref('1')
+</script>

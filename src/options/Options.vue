@@ -6,7 +6,14 @@
 </template>
 
 <script setup lang="ts">
+import useCssVar from '~/options/hooks/useCssVar'
 
+const {
+  screenWidth,
+  screenHeight,
+  searchHeight,
+  searchWidth,
+} = useCssVar()
 </script>
 
 <style lang="less" scoped>
@@ -25,12 +32,12 @@
     background-image: url("https://api.dujin.org/bing/1920.php");
     background-size: cover;
   }
-
   .search-bar {
-    position: absolute;
+    position: relative;
     top: 30%;
-    left: 50%;
-    margin-left: -100px;
+  }
+  .config {
+
   }
 }
 </style>

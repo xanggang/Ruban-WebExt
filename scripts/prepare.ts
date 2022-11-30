@@ -2,6 +2,7 @@
 import { execSync } from 'child_process'
 import fs from 'fs-extra'
 import chokidar from 'chokidar'
+import {resolve} from "path";
 import { isDev, log, r } from './utils'
 
 /**
@@ -29,7 +30,7 @@ function writeManifest() {
 }
 
 fs.ensureDirSync(r('extension'))
-fs.copySync(r('assets'), r('extension/assets'))
+fs.copySync(r('src/assets'), r('extension/assets'))
 writeManifest()
 
 if (isDev) {
