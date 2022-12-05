@@ -65,6 +65,7 @@
     "webextension-polyfill": "^0.10.0"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^6.1.0",
     "ant-design-vue": "^3.2.15",
     "axios": "^1.2.0",
     "concurrently": "^7.6.0",

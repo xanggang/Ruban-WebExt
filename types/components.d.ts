@@ -9,6 +9,5 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Logo: typeof import('./../src/components/Logo.vue')['default']
     PixelarticonsPower: typeof import('~icons/pixelarticons/power')['default']
-    SearchBar: typeof import('./../src/components/SearchBar/index.vue')['default']
   }
 }

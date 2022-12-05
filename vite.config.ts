@@ -82,6 +82,18 @@ export const sharedConfig: UserConfig = {
       'vue-demi',
     ],
   },
+  css: {
+    preprocessorOptions: {
+      less: {
+        modifyVars: {
+          hack: `true; @import (reference) "${resolve(
+            'src/styles/_variable.less',
+          )}";`,
+        },
+        javascriptEnabled: true,
+      },
+    },
+  },
 }
 
 export default defineConfig(({ command }) => ({

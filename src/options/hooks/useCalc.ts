@@ -1,55 +1,21 @@
-export interface IConfig {
-  row: number // 列数
-  col: number // 行数
-  rowGap: number // 间距
-  colGap: number // 间距
-  iconScale: number // 比例
-  innerWidth: number // 屏幕宽度
-  mainRatio: number // 屏幕缩放比例
-  fontSize: number
-}
+import type { IAppConfig, IAppSizeConfig } from '../types'
 
-export interface IAppConfig {
-  appContentHeight: number
+interface ISearchCalcRes {
+  width: string
+  height: string
+  searchRatio: number
+  marginTop: string
+  marginBottom: string
   appContentWidth: number
+  appContentHeight: number
   searcherSizeWithRatio: {
     width: number
     height: number
   }
 }
 
-const mockE = {
-  row: 2,
-  col: 5,
-  rowGap: 0.2,
-  colGap: 0.3,
-  iconScale: 0.5,
-  searchScale: 0.82,
-  innerHeight: 937,
-  innerWidth: 834,
-  miniMode: false,
-  fontSize: 15,
-  topUseful: false,
-  topBookmark: false,
-  mainRatio: 1,
-}
-
-const mockT = {
-  width: '393px',
-  height: '37px',
-  searchRatio: 0.63,
-  marginTop: '-47px',
-  marginBottom: '28px',
-  appContentWidth: 667.2,
-  appContentHeight: 937,
-  searcherSizeWithRatio: {
-    width: 393.23099999999994,
-    height: 37.04492475,
-  },
-}
-
 // 计算页面icon元素大小
-function calcIconSize(e: IConfig, t: IAppConfig) {
+function calcIconSize(e: IAppConfig, t: ISearchCalcRes) {
   const {
     row,
     col,
@@ -110,7 +76,7 @@ function calcIconSize(e: IConfig, t: IAppConfig) {
 }
 
 // 计算页面search元素大小
-function calcSearchSize(e: any) {
+function calcSearchSize(e: IAppConfig) {
   const {
     searchScale,
     innerHeight,
@@ -122,8 +88,12 @@ function calcSearchSize(e: any) {
   } = e
 
   let s = 0
-  topUseful && (s += 36)
-  topBookmark && (s += 36)
+  if (topUseful) {
+    s += 36
+  }
+  if (topBookmark) {
+    s += 36
+  }
   const u = innerHeight - s
   const f = innerWidth - 0.2 * innerWidth
   let l = innerWidth
@@ -162,7 +132,7 @@ function calcSearchSize(e: any) {
   }
 }
 
-const r = (e) => {
+export function calcSize(e: IAppConfig): IAppSizeConfig {
   const t = calcSearchSize(e)
   const n = calcIconSize(e, t)
   return {

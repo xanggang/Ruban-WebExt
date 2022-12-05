@@ -34,6 +34,7 @@
 </template>
 
 <script lang="ts" setup>
+import axios from 'axios'
 import jsonp from 'jsonp'
 import { type IEngineConfig, engineConfig } from './enums'
 
@@ -79,36 +80,15 @@ function useSuggestion() {
     window.open(url)
   }
 
-  onMounted(() => {
-    initJsonP()
-  })
-
-  onUnmounted(() => {
-    (window as any).baidu = null
-  })
-
-  function initJsonP() {
-    (window as any).baidu = {
-      sug(e: any) {
-        suggestionList.value = e.s?.map((text: String) => {
-          return {
-            value: text,
-          }
-        })
-      },
-    }
-  }
-
   function getSuggestion(wd: string) {
-    return new Promise((resolve, reject) => {
-      const url = `http://suggestion.baidu.com/su?wd=${wd}`
-      jsonp(url, null, (err: Error, data: any) => {
-        if (err) {
-          reject(err)
-        }
-        resolve(data)
+    return axios.get(`https://suggestion.baidu.com/su?ie=UTF-8&cb=&wd=${wd}`)
+      .then((a) => {
+        // console.log(a.data)
+        const resText = a.data
+        const i = /s:(\[[\w\W]*\])/.exec(resText)
+        const list: string[] = JSON.parse(i?.[1] || '[]')
+        suggestionList.value = list.map((i: string) => ({ label: i, value: i }))
       })
-    })
   }
 
   return {
@@ -135,6 +115,10 @@ const {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  z-index: 1;
+  margin-top: var(--search-margin-top);
+  margin-bottom: var(--search-margin-bottom);
 
   .inner {
     display: flex;
@@ -187,7 +171,6 @@ const {
     justify-content: center;
     align-items: center;
     border-right: none;
-    transition: all 0.2s;
 
     &:hover {
       background: rgb(238, 238, 238);

@@ -1,3 +1,10 @@
+import type { IAppConfig } from '../options/types'
+import { defaultAppConfig } from '../options/setting'
 import { useStorageLocal } from '~/composables/useStorageLocal'
 
-export const storageDemo = useStorageLocal('webext-demo', 'Storage Demo', { listenToStorageChanges: true })
+export const appSizeStorage = useStorageLocal<IAppConfig>(
+  'appSizeConfig',
+  {
+    ...defaultAppConfig,
+  },
+  { listenToStorageChanges: true })

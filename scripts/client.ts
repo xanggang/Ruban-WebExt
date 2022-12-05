@@ -330,9 +330,12 @@ async function fetchUpdate({ path, acceptedPath, timestamp }: Update) {
           /* @vite-ignore */
           normalizeScriptUrl(`${base + path.slice(1)}.js${query ? `_${query}` : ''}`, timestamp)
         )
+        console.log('new css');
+        console.log(`${base + path.slice(1)}.js${query ? `_${query}` : ''}`, timestamp);
         moduleMap.set(dep, newMod)
       }
       catch (e: any) {
+        console.error(e);
         warnFailedFetch(e, dep)
       }
     }),
